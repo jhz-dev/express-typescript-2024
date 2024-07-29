@@ -1,30 +1,17 @@
-import type { User } from "@/api/user/userModel";
+import { BaseRepository } from "@/common/models/baseRepository";
+import { PrismaClient, User, Prisma } from "@prisma/client";
 
-export const users: User[] = [
-  {
-    id: 1,
-    name: "Alice",
-    email: "alice@example.com",
-    age: 42,
-    createdAt: new Date(),
-    updatedAt: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days later
-  },
-  {
-    id: 2,
-    name: "Robert",
-    email: "Robert@example.com",
-    age: 21,
-    createdAt: new Date(),
-    updatedAt: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000), // 5 days later
-  },
-];
+const prisma = new PrismaClient();
 
-export class UserRepository {
-  async findAllAsync(): Promise<User[]> {
-    return users;
+export class UserRepository extends BaseRepository<
+  User,
+  Prisma.UserCreateInput,
+  Prisma.UserUpdateInput,
+  Prisma.UserDelegate
+> {
+  constructor() {
+    super(prisma.user);
   }
 
-  async findByIdAsync(id: number): Promise<User | null> {
-    return users.find((user) => user.id === id) || null;
-  }
+  // Add any additional methods specific to UserRepository here
 }

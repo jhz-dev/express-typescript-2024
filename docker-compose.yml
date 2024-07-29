@@ -1,0 +1,15 @@
+version: "3.1"
+
+volumes:
+  mysql8:
+
+services:
+  mysql8.0:
+    image: "mysql:8.0"
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=express-typescript-2024
+      - MYSQL_ROOT_PASSWORD=4dm1n
+    volumes:
+      - mysql8:/var/lib/mysql
